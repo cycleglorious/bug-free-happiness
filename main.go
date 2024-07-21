@@ -6,7 +6,7 @@ import (
 )
 
 func Add(a string, b string) string {
-	return fmt.Sprintf("%s%s", a, b)
+	return fmt.Sprintf("%s%sa", a, b)
 }
 
 func AddHandler(w http.ResponseWriter, r *http.Request) {
