@@ -6,7 +6,7 @@ on:
     
 env:
   REGISTRY: registry-1.docker.io
-  IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}
+  IMAGE_NAME: ${{ vars.IMAGE_NAME }}
 
 jobs:
 
