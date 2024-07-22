@@ -6,7 +6,6 @@ on:
     
 env:
   REGISTRY: registry-1.docker.io
-  IMAGE_NAME: glocycle/bug-free-happiness
 
 jobs:
 
@@ -51,11 +50,11 @@ jobs:
             id: meta
             uses: docker/metadata-action@v5
             with:
-                images: ${{ env.IMAGE_NAME }}
+                images: ${{ env.REGISTRY }}/glocycle/bug-free-happiness
         -
             name: Debug
             run: |
-             echo ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}
+             echo ${{ env.REGISTRY }}/glocycle/bug-free-happiness:${{ steps.meta.outputs.tags }}
 
         - 
             name: Build and push Docker image
@@ -71,4 +70,4 @@ jobs:
         -
             name: Sign the image with cosign
             if: github.event_name != 'pull_request'
-            run: cosign sign --key cosign.key ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}
+            run: cosign sign --key cosign.key ${{ env.REGISTRY }}/glocycle/bug-free-happiness:${{ steps.meta.outputs.tags }}
