@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
     
 env:
-  REGISTRY: registry-1.docker.io
+  REGISTRY: docker.io
 
 jobs:
 
