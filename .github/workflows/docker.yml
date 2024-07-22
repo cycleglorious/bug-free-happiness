@@ -52,7 +52,11 @@ jobs:
             uses: docker/metadata-action@v5
             with:
                 images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        
+        -
+            name: Debug
+            run: |
+             echo ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}
+
         - 
             name: Build and push Docker image
             id: build-and-push
