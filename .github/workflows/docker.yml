@@ -78,4 +78,7 @@ jobs:
             if: github.event_name != 'pull_request'
             env:
                 COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-            run: cosign sign --key cosign.key ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}
+            run: |
+                IMAGE_TAG=$(echo "${{ steps.meta.outputs.tags }}" | cut -d ',' -f 1)
+                cosign sign --key cosign.key ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$IMAGE_TAG
+            
