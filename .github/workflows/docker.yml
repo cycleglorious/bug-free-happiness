@@ -78,5 +78,5 @@ jobs:
             env:
                 COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
                 COSIGN_EXPERIMENTAL: true
-            run: cosign sign --key cosign.key ${{ steps.meta.outputs.tags }}
+            run: cosign sign --key cosign.key --tlog-upload=false ${{ steps.meta.outputs.tags }}
             
