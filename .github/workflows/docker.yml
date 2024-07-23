@@ -71,7 +71,6 @@ jobs:
             name: Write signing key to disk
             run: |
                 echo "$KEY" > cosign.key
-                echo ${{ steps.meta.outputs.tags }}
             shell: bash
             env:
                 KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
@@ -80,5 +79,6 @@ jobs:
             if: github.event_name != 'pull_request'
             env:
                 COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-            run: cosign sign --key cosign.key ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
+                COSIGN_EXPERIMENTAL: true
+            run: cosign sign --key cosign.key ${{ steps.meta.outputs.tags }}
             
