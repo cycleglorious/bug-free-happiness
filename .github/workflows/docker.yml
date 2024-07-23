@@ -56,16 +56,16 @@ jobs:
             with:
                 images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         
-        # - 
-            # name: Build and push Docker image
-            # id: build-and-push
-            # uses: docker/build-push-action@v4
-            # with:
-            #     push: ${{ github.event_name != 'pull_request' }} # Don't push on PR
-            #     tags: ${{ steps.meta.outputs.tags }}
-            #     labels: ${{ steps.meta.outputs.labels }}
-            #     cache-from: type=gha
-            #     cache-to: type=gha,mode=max
+        - 
+            name: Build and push Docker image
+            id: build-and-push
+            uses: docker/build-push-action@v4
+            with:
+                push: ${{ github.event_name != 'pull_request' }} # Don't push on PR
+                tags: ${{ steps.meta.outputs.tags }}
+                labels: ${{ steps.meta.outputs.labels }}
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
 
         -
             name: Write signing key to disk
@@ -80,5 +80,5 @@ jobs:
             if: github.event_name != 'pull_request'
             env:
                 COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-            run: cosign sign --key cosign.key ${{ env.REGISTRY }}/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.run_id }}
+            run: cosign sign --key cosign.key ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.run_id }}
             
